@@ -7,6 +7,7 @@ sys.path.insert(0, "..") # This is while waiting for the pypi integration
 import virtualargofleet as vaf
 
 import matplotlib.pyplot as plt
+from traitement import *
 
 
 import cartopy.crs as ccrs
@@ -86,7 +87,7 @@ class SimulationArgo:
         
         # USAGE : float_object.simulate(duration=days,dt_run=hours,dt_out=hours,output_file='my_advection_nXX.nc')
         # VFleet.simulate(duration=12, dt_run=1/4, dt_out=1/6, output_file=output_file)
-        VFleet.simulate(duration=250, dt_run=5, dt_out=0.40, output_file=output_file)
+        VFleet.simulate(duration=180, dt_run=5, dt_out=0.40, output_file=output_file)
         
         
         # Load simulation results:

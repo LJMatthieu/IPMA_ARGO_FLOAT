@@ -47,6 +47,10 @@ manager = Manager();
 manager.simulate(4); # 4 is the number of generations desired 
 manager.plotFitness();
 ```
+
+====== 
+This software is developped by:
+
 <p align="center">
   <img width="460" height="300" src="https://www.ipma.pt/opencms/bin/images.news/2017/logo_ipma.jpg">
 </p>

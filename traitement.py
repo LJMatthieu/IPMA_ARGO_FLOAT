@@ -2,9 +2,7 @@
 import xarray as xr
 from shapely.geometry import Point
 from turfpy.measurement import boolean_point_in_polygon
-from geojson import Point, MultiPolygon, Feature
 
-from statistics import *
               
 class Box:
  

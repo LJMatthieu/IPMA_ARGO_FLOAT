@@ -1,10 +1,8 @@
 import FloatMuttant;
-import Simulation;
 
-import numpy as np
 import matplotlib.pyplot as plt
 
-from multiprocessing import Process
+import multiprocessing
 import threading
 
 import time;
@@ -62,7 +60,7 @@ class Manager:
         print("Level mutation: 2")
         self.currentLevel = 2
         
-        for i in range(3):
+        for i in range(multiprocessing.cpu_count() - 1):
             srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
             self.sredes.append(i)
             srede.start()
@@ -75,7 +73,7 @@ class Manager:
         print("Level mutation: 4")
         self.currentLevel = 4
        
-        for i in range(3):
+        for i in range(multiprocessing.cpu_count() - 1):
             srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
             self.sredes.append(i)
             srede.start()
@@ -87,7 +85,7 @@ class Manager:
         print("Level mutation: 7")
         self.currentLevel = 7
         
-        for i in range(3):
+        for i in range(multiprocessing.cpu_count() - 1):
             srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
             self.sredes.append(i)
             srede.start()
@@ -99,7 +97,7 @@ class Manager:
         print("Level mutation: 10")
         self.currentLevel = 10
         
-        for i in range(3):
+        for i in range(multiprocessing.cpu_count() - 1):
             srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
             self.sredes.append(i)
             srede.start()
@@ -138,10 +136,10 @@ class Manager:
 
     def plotFitness(self):
         x = [];
-        y = [39.43, 42.27, 42.50, 45.22, 47.3, 50.55, 51.55];
+        y = [];
         
-       # for i in self.listOfResult:
-       #     y.append(i.score);
+        for i in self.listOfResult:
+            y.append(i.score);
             
         print(y);
         
@@ -166,5 +164,5 @@ class Manager:
             self.spawnGeneration();
     
 manager = Manager();
-manager.simulate(6);
+manager.simulate(4);
 manager.plotFitness();

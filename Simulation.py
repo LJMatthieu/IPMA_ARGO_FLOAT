@@ -2,21 +2,15 @@
 import sys
 import numpy as np
 import xarray as xr
-import pandas as pd
 
 sys.path.insert(0, "..") # This is while waiting for the pypi integration
 import virtualargofleet as vaf
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
-from mpl_toolkits.mplot3d import Axes3D
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
-
-from traitement import *
 
 import random;
 import string;

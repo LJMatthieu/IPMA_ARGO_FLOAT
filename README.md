@@ -48,7 +48,7 @@ manager.simulate(4); # 4 is the number of generations desired
 manager.plotFitness();
 ```
 
-====== 
+---------------------------------------------------------------------------------------------------------------------------------\
 This software is developped by:
 
 <p align="center">

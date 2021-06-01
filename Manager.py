@@ -1,10 +1,14 @@
-# -*- coding: utf-8 -*-
-
 import FloatMuttant;
 import Simulation;
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+from multiprocessing import Process
+import threading
+
+import time;
+
 
 class Manager:
     
@@ -18,6 +22,9 @@ class Manager:
     currentPopulation = [];
     listOfResult = [];
     lastBetterFloat = None;
+    
+    currentLevel = 0;
+    sredes = [];
     
     def __init__(self):
         print("Welcome to the algorithm! Produced for IPMA");
@@ -46,35 +53,69 @@ class Manager:
     def muteFloat(self):
         self.currentPopulation = [];
         mutant = None;
-        
+              
         print("Current mutation: 0")
         mutant = FloatMuttant.Float(100, False, self.lastBetterFloat, 0);
         self.currentPopulation.append(mutant);
         mutant.doSimulation(mutant);
         
+        print("Level mutation: 2")
+        self.currentLevel = 2
         
-        ## First mutation
-        for i in range(2):
-            print("Level mutation: 4")
-
-            mutant = FloatMuttant.Float(100, False, self.lastBetterFloat, 4);
-            self.currentPopulation.append(mutant);
-            mutant.doSimulation(mutant);
-         ## Second mutation
-        for i in range(2):
-            print("Level mutation: 6")
+        for i in range(3):
+            srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
+            self.sredes.append(i)
+            srede.start()
+            time.sleep(3)
             
-            mutant = FloatMuttant.Float(100, False, self.lastBetterFloat, 6);
-            self.currentPopulation.append(mutant);
-            mutant.doSimulation(mutant);
-
-         ## Third mutation
-        for i in range(2):
-            print("Level mutation: 10")
-         
-            mutant = FloatMuttant.Float(100, False, self.lastBetterFloat, 10);
-            self.currentPopulation.append(mutant);
-            mutant.doSimulation(mutant);
+        while(len(self.sredes) > 0):
+            time.sleep(5);            
+        
+        
+        print("Level mutation: 4")
+        self.currentLevel = 4
+       
+        for i in range(3):
+            srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
+            self.sredes.append(i)
+            srede.start()
+            time.sleep(3)
+    
+        while(len(self.sredes) > 0):
+            time.sleep(5);
+            
+        print("Level mutation: 7")
+        self.currentLevel = 7
+        
+        for i in range(3):
+            srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
+            self.sredes.append(i)
+            srede.start()
+            time.sleep(3)
+            
+        while(len(self.sredes) > 0):
+            time.sleep(5);
+            
+        print("Level mutation: 10")
+        self.currentLevel = 10
+        
+        for i in range(3):
+            srede = threading.Thread(target=self.run, name=f'my_service_{i}', args=(i,))
+            self.sredes.append(i)
+            srede.start()
+            time.sleep(3)
+            
+        while(len(self.sredes) > 0):
+            time.sleep(5);
+        
+            
+    def run(self, i):                                         # Default called function with mythread.start()
+        print(f"srede {i} Started !")
+        mutant = FloatMuttant.Float(100, False, self.lastBetterFloat, self.currentLevel)
+        mutant.doSimulation(mutant)
+        print(f"srede {i} finished !")
+        self.sredes.remove(i)
+        return
                     
     def setBestElementOfGeneration(self):
         for c in self.currentPopulation:
@@ -125,5 +166,5 @@ class Manager:
             self.spawnGeneration();
     
 manager = Manager();
-#manager.simulate(6);
+manager.simulate(6);
 manager.plotFitness();

@@ -1,4 +1,4 @@
-d# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import sys
 import numpy as np
 import xarray as xr

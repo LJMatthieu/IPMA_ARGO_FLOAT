@@ -1,4 +1,4 @@
-# IPMA_ARGO_FLOAT
+# IPMA_ARGO_FLOAT - Version 0.1 (01/06/2021)
 Algorithm based on [VirtualFleet](https://github.com/euroargodev/VirtualFleet/). that determines the best parameters for an agro-float to stay in a defined area. 
 
 # The algorithm
@@ -41,10 +41,12 @@ box.initPolygon()
 Here is an example of a 'box' defined with a size of 2.5 on each side. 
 ![alt text](http://image.noelshack.com/fichiers/2021/22/2/1622546145-screenshot-1.png)
 
-Now you can run a simulation from the Manager.py class
+Now you can run a simulation from the Manager.py :smirk:
 ```
 manager = Manager();
 manager.simulate(4); # 4 is the number of generations desired 
 manager.plotFitness();
 ```
+
+![alt text](https://www.ipma.pt/opencms/bin/images.news/2017/logo_ipma.jpg)
 

@@ -56,6 +56,7 @@ This software is developped by:
   <img width="460" height="300" src="https://www.ipma.pt/opencms/bin/images.news/2017/logo_ipma.jpg">
 </p>
 
+List of dimensions in your file :
         out = netCDF4.Dataset("data/test/CMEMS_1.nc")
         wanted_vars = []
 

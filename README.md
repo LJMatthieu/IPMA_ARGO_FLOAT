@@ -56,3 +56,9 @@ This software is developped by:
   <img width="460" height="300" src="https://www.ipma.pt/opencms/bin/images.news/2017/logo_ipma.jpg">
 </p>
 
+        out = netCDF4.Dataset("data/test/CMEMS_1.nc")
+        wanted_vars = []
+
+        for v in out.variables:
+            print (v)
+

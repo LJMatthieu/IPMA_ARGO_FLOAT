@@ -2,7 +2,7 @@
 import xarray as xr
 from shapely.geometry import Point
 from turfpy.measurement import boolean_point_in_polygon
-
+from geojson import  Feature, MultiPolygon
               
 class Box:
  
@@ -58,8 +58,11 @@ class Box:
             self.corner_box.append(t);
  
     def calculPourcentage(self, value, maxi):
+
         return ((value*100) / maxi);
- 
+    
+
+    
     def initPolygon(self) :
         if(self.getDirection() == "lon"):
            self. polygon = Feature(geometry=MultiPolygon([([(float(self.corner_box[1]), float(self.corner_box[3] - self.delta)),
@@ -101,6 +104,15 @@ class Simulation_Case:
             if(toReturn < i):
                 toReturn = i;
         return toReturn;
+    
+    def calculAverage(self, value):
+       count = 0;
+       for i in range(len(value)):
+           count = count + value[i];
+              
+       return (count / len(value));
+    
+        
  
     def simulate(self):
         result = [];
@@ -131,9 +143,9 @@ class Simulation_Case:
                  
                 count_float = count_float + 1;
                     
-        self.FloatMuttant.score = self.getBestScore(result)
+        self.FloatMuttant.score = self.calculAverage(result)
         #self.FloatMuttant.setPath(path);
-        print("Moyenne: ", self.FloatMuttant.score);
         print("Score: ", result);
+        print("moyenne: ", self.calculAverage(result))
         result = []
  

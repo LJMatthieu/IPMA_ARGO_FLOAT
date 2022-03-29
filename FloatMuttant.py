@@ -25,7 +25,7 @@ class Float:
     
     ## max and min
     parking_depth_min = 250;
-    parking_depth_max = 1500;
+    parking_depth_max = 750;
     
     vertical_speed_min = 0.001;
     vertical_speed_max = 0.14;
@@ -38,7 +38,7 @@ class Float:
 
     # First init with random init
     def __init__(self, scoreMaxi, rnd, flatMuttant, levelofMutation):
-        self.score = scoreMaxi;
+        self.score = 0;
         self.rnd = rnd;
         
         if(self.rnd): 
@@ -47,7 +47,7 @@ class Float:
             self.initByCopy(flatMuttant, levelofMutation); 
        
     def initWithRandomValue(self):
-        self.parking_depth = random.randint(250, 1200);
+        self.parking_depth = random.randint(250, self.parking_depth_max);
         self.vertical_speed = round(random.uniform(0.0, 0.14), 3);
         self.cycle_duration = random.randint(7, 10);
    
@@ -64,7 +64,6 @@ class Float:
 
     def doSimulation(self, mutant):
        #  self.printValue();
-
          simu = Simulation.SimulationArgo(self.parking_depth, self.vertical_speed , self.cycle_duration, mutant);
          simu.simulate();
          

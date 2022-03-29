@@ -16,6 +16,9 @@ import cartopy.feature as cfeature
 import random;
 import string;
 
+import matplotlib.ticker as mticker
+
+from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
 class SimulationArgo:
     
@@ -44,10 +47,10 @@ class SimulationArgo:
         # Set how to find the velocity field
         # src = "/home/datawork-lops-oh/somovar/WP1/data/GLOBAL-ANALYSIS-FORECAST-PHY-001-024" # Datarmor
         # src = "/Users/gmaze/data/MERCATOR/data/GLOBAL-ANALYSIS-FORECAST-PHY-001-024" # Laptop
-        src = "data/current/US" 
+        src = "data" 
         
-        filenames = {'U': src + "/2019*.nc",
-                     'V': src + "/2019*.nc"}
+        filenames = {'U': src + "/2021*.nc",
+                     'V': src + "/2021*.nc"}
         variables = {'U':'uo','V':'vo'}
         dimensions = {'time': 'time', 'depth':'depth', 'lat': 'latitude', 'lon': 'longitude'}
         
@@ -58,20 +61,21 @@ class SimulationArgo:
        # VELfield.plot()
         
         # Number of floats we want to simulate:
-        nfloats = 5;
+        nfloats = 3;
         
         # Define space/time locations of deployments:
-        #lat = np.linspace(30, 38, nfloats)
-        #lon = np.full_like(lat, -60)
+        lat = np.linspace(35.8, 34.8, nfloats)
+        lon = np.full_like(lat, -7.4)
         
-        lon = np.linspace(-68, -66, nfloats)
-        lat = np.full_like(lon, 34)
+        #lon = np.linspace(36.27, 35.73, nfloats)
+        #lat = np.full_like(lon, -7.44)
         
         dpt = np.linspace(1.0, 1.0, nfloats) #1m depth
-        tim = np.array(['2019-01-01' for i in range(nfloats)],dtype='datetime64')
-        
-        
+        tim = np.array(['2021-01-01' for i in range(nfloats)],dtype='datetime64')
+
         mission = {'parking_depth':self.parking_depth, 'profile_depth':self.profile_depth, 'vertical_speed':self.vertical_speed, 'cycle_duration':self.cycle_duration}
+        
+        
         
         # DEFINE THE FLOAT OBJECT
         VFleet = vaf.virtualfleet(lat=lat, lon=lon, depth=dpt, time=tim, vfield=VELfield, mission=mission)
@@ -87,7 +91,7 @@ class SimulationArgo:
         
         # USAGE : float_object.simulate(duration=days,dt_run=hours,dt_out=hours,output_file='my_advection_nXX.nc')
         # VFleet.simulate(duration=12, dt_run=1/4, dt_out=1/6, output_file=output_file)
-        VFleet.simulate(duration=180, dt_run=5, dt_out=0.40, output_file=output_file)
+        VFleet.simulate(duration=30, dt_run=5, dt_out=0.80, output_file=output_file)
         
         
         # Load simulation results:
@@ -99,7 +103,7 @@ class SimulationArgo:
         ax3 = fig.add_subplot(1,1,1,projection=pr1)
         ax3.add_feature(land_feature, edgecolor='black')
         ax3.set_extent([simu.lon.min()-10, simu.lon.max()+10, simu.lat.min()-10, simu.lat.max()+10])
-        ax3.gridlines(linewidth=1, color='gray', alpha=0.5, linestyle=':')
+        ax3.gridlines(linewidth=1, color='gray',draw_labels=True, dms=True, x_inline=False, y_inline=False, alpha=0.5, linestyle=':')
         
         for i in simu['traj']:
             this = simu.isel(traj=i).sortby('time')
@@ -110,7 +114,10 @@ class SimulationArgo:
         plt.title("Virtual Fleet simulation: float trajectories\n(%s)" % output_file);
         
     
-        box = Box("US", 2.5, output_file);
+        plt.savefig("out/(%s).png" % output_file)
+        
+    
+        box = Box("ArgoBox", 2.5, output_file);
         box.initValueCorner()
         box.initPolygon()
         
